@@ -1,0 +1,37 @@
+<h1>Listing Stories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>By</th>
+      <th>Descendants</th>
+      <th>Id</th>
+      <th>Score</th>
+      <th>Time</th>
+      <th>Url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for story <- @stories do %>
+  <tr>
+    <td colspan = 6>
+      <%= link story.title, to: Routes.story_path(@conn, :show, story) %>
+    <td>
+  </tr>
+  <tr>
+      <td><%= story.by %></td>
+      <td><%= story.descendants %></td>
+      <td><%= story.post_id %></td>
+      <td><%= story.score %></td>
+      <td><%= story.time %></td>
+      <td>
+        <%= link story.url, to: story.url %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%=# link "New Story", to: Routes.story_path(@conn, :new) %></span>
