@@ -18,6 +18,8 @@ defmodule WebHn.Posts.Story do
   def changeset(story, attrs) do
     story
     |> cast(attrs, [:by, :descendants, :post_id, :score, :time, :title, :url])
-    |> validate_required([:by, :descendants, :post_id, :score, :time, :title, :url])
+    |> validate_required([:by, :descendants, :post_id, :score, :time, :title])
+    |> unsafe_validate_unique([:post_id], Story)
+    |> unique_constraint([:post_id, :id])
   end
 end

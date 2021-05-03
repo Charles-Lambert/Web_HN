@@ -4,9 +4,9 @@ defmodule WebHnWeb.StoryController do
   alias WebHn.Posts
   alias WebHn.Posts.Story
 
-  def index(conn, _params) do
+  def index(conn, params) do
     stories = Posts.list_stories()
-    render(conn, "index.html", stories: stories)
+    render(conn, "index.html", stories: stories, sortby: Map.get(params, "sortby"), descending: Map.get(params, "descending"))
   end
 
   def new(conn, _params) do

@@ -1,24 +1,24 @@
 <h1>Listing Stories</h1>
 
+<h2>Sorting By <%= @sortby %> </h2>
+
 <table>
   <thead>
     <tr>
-      <th>By</th>
-      <th>Descendants</th>
-      <th>Id</th>
-      <th>Score</th>
-      <th>Time</th>
-      <th>Url</th>
-
-      <th></th>
+      <th> <%= sortlink("by", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("descendants", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("post_id", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("score", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("time", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("url", @sortby, @descending, @conn) %> </th>
     </tr>
   </thead>
   <tbody>
-<%= for story <- @stories do %>
+    <%= for story <- @stories |> sort(@sortby, @descending) do %>
   <tr>
-    <td colspan = 6>
+    <td colspan = 5>
       <%= link story.title, to: Routes.story_path(@conn, :show, story) %>
-    <td>
+    </td>
   </tr>
   <tr>
       <td><%= story.by %></td>
@@ -33,5 +33,6 @@
 <% end %>
   </tbody>
 </table>
+
 
 <span><%=# link "New Story", to: Routes.story_path(@conn, :new) %></span>
