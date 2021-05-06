@@ -48,17 +48,13 @@ defmodule WebHn.Update do
   def update_stories(url, incomplete_url, keywordmap, n) do
     details_list(url, incomplete_url, keywordmap, n) 
     |> Enum.map(fn attrs -> Story.changeset(%Story{}, attrs) 
-    |> Repo.insert end)
+      |> Repo.insert!(on_conflict: :replace_all, conflict_target: :id) end)
   end
-
 
   def details_to_struct(enumerable, keywordmap, output_struct) do
     key_fun = fn {k, v} -> change_keyword({k, v}, keywordmap) end
     struct(output_struct, Enum.map(enumerable, key_fun))
   end
-
-
-
 end
 
 

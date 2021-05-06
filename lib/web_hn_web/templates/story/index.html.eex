@@ -7,7 +7,7 @@
     <tr>
       <th> <%= sortlink("by", @sortby, @descending, @conn) %> </th>
       <th> <%= sortlink("descendants", @sortby, @descending, @conn) %> </th>
-      <th> <%= sortlink("post_id", @sortby, @descending, @conn) %> </th>
+      <th> <%= sortlink("id", @sortby, @descending, @conn) %> </th>
       <th> <%= sortlink("score", @sortby, @descending, @conn) %> </th>
       <th> <%= sortlink("time", @sortby, @descending, @conn) %> </th>
       <th> <%= sortlink("url", @sortby, @descending, @conn) %> </th>
@@ -23,7 +23,7 @@
   <tr>
       <td><%= story.by %></td>
       <td><%= story.descendants %></td>
-      <td><%= story.post_id %></td>
+      <td><%= story.id %></td>
       <td><%= story.score %></td>
       <td><%= story.time %></td>
       <td>
