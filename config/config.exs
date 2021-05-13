@@ -8,7 +8,9 @@
 use Mix.Config
 
 config :web_hn,
-  ecto_repos: [WebHn.Repo]
+  ecto_repos: [WebHn.Repo],
+  list_url: "https://hacker-news.firebaseio.com/v0/newstories.json",
+  story_url: "https://hacker-news.firebaseio.com/v0/item/"
 
 # Configures the endpoint
 config :web_hn, WebHnWeb.Endpoint,

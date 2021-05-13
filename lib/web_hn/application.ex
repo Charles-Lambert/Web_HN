@@ -14,7 +14,9 @@ defmodule WebHn.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: WebHn.PubSub},
       # Start the Endpoint (http/https)
-      WebHnWeb.Endpoint
+      WebHnWeb.Endpoint,
+
+      WebHn.Update.Supervisor
       # Start a worker by calling: WebHn.Worker.start_link(arg)
       # {WebHn.Worker, arg}
     ]
@@ -24,6 +26,18 @@ defmodule WebHn.Application do
     opts = [strategy: :one_for_one, name: WebHn.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+    def application do
+    [
+      env: [interval: 5000,
+        list_url: "https://hacker-news.firebaseio.com/v0/newstories.json",
+        story_url: "https://hacker-news.firebaseio.com/v0/item/",
+      ],
+      mod: {Hackernews.Supervisor, []},
+      extra_applications: [:logger]
+    ]
+  end
+
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

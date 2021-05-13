@@ -20,7 +20,11 @@ defmodule WebHn.MixProject do
   def application do
     [
       mod: {WebHn.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
+      env: [list_url: "https://hacker-news.firebaseio.com/v0/newstories.json",
+          story_url: "https://hacker-news.firebaseio.com/v0/item/",
+      ]
+
     ]
   end
 

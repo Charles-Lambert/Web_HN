@@ -27,7 +27,7 @@
       <td><%= story.score %></td>
       <td><%= story.time %></td>
       <td>
-        <%= link story.url, to: story.url %>
+        <%=if !is_nil(story.url), do: link story.url, to: story.url %>
       </td>
     </tr>
 <% end %>
