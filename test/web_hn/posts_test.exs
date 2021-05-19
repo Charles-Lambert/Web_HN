@@ -7,6 +7,7 @@ defmodule WebHn.PostsTest do
     alias WebHn.Posts.Story
 
     @valid_attrs %{by: "some by", descendants: 42, id: 42, score: 42, time: "2010-04-17T14:00:00Z", title: "some title", url: "some url"}
+    @ask_hn_attrs %{by: "some by", descendants: 42, id: 42, score: 42, time: "2010-04-17T14:00:00Z", title: "some title", url: nil}
     @update_attrs %{by: "some updated by", descendants: 43, id: 43, score: 43, time: "2011-05-18T15:01:01Z", title: "some updated title", url: "some updated url"}
     @invalid_attrs %{by: nil, descendants: nil, id: nil, score: nil, time: nil, title: nil, url: nil}
 
@@ -38,6 +39,17 @@ defmodule WebHn.PostsTest do
       assert story.time == DateTime.from_naive!(~N[2010-04-17T14:00:00Z], "Etc/UTC")
       assert story.title == "some title"
       assert story.url == "some url"
+    end
+
+    test "create_story/1 with valid data without url creates a story" do
+      assert {:ok, %Story{} = story} = Posts.create_story(@ask_hn_attrs)
+      assert story.by == "some by"
+      assert story.descendants == 42
+      assert story.id == 42
+      assert story.score == 42
+      assert story.time == DateTime.from_naive!(~N[2010-04-17T14:00:00Z], "Etc/UTC")
+      assert story.title == "some title"
+      assert story.url == nil
     end
 
     test "create_story/1 with invalid data returns error changeset" do

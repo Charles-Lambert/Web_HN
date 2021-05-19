@@ -16,7 +16,7 @@ defmodule WebHnWeb.Router do
   scope "/", WebHnWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", StoryController, :index
     resources "/stories", StoryController, only: [:index, :show]
   end
 
