@@ -56,6 +56,12 @@ defmodule WebHn.PostsTest do
       assert {:error, %Ecto.Changeset{}} = Posts.create_story(@invalid_attrs)
     end
 
+    test "enforces unique ID" do
+      assert {:ok, %Story{} = story} = Posts.create_story(@valid_attrs)
+      assert {:error, changeset} = Posts.create_story(@valid_attrs)
+    end
+
+
     test "update_story/2 with valid data updates the story" do
       story = story_fixture()
       assert {:ok, %Story{} = story} = Posts.update_story(story, @update_attrs)

@@ -3,15 +3,19 @@ defmodule WebHn.Update do
   alias WebHn.Posts.Story
   alias WebHn.Repo
 
+  defp http_client do
+    Application.get_env(:web_hn, :http_client)
+  end
+
   def get_id_list(url) do
-    with {:ok, response} <- HTTPoison.get(url),
+    with {:ok, response} <- http_client().get(url),
          {:ok, id_list} <- Jason.decode(response.body),
          do: {:ok, id_list}
     end
 
   def get_details(id, incomplete_url, keywordmap) do
     url = ~s/#{incomplete_url}#{id}.json/
-    with {:ok, response} <- HTTPoison.get(url),
+    with {:ok, response} <- http_client().get(url),
          {:ok, details} <- response.body 
             |> Jason.decode([keys: fn k -> WebHn.Update.change_keyword(k, keywordmap) end]),
          do: {:ok, details |> Map.update!("time", &DateTime.from_unix!/1)}

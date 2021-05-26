@@ -22,7 +22,8 @@ defmodule WebHn.MixProject do
       mod: {WebHn.Application, []},
       extra_applications: [:logger, :runtime_tools],
       env: [list_url: "https://hacker-news.firebaseio.com/v0/newstories.json",
-          story_url: "https://hacker-news.firebaseio.com/v0/item/",
+        story_url: "https://hacker-news.firebaseio.com/v0/item/",
+        http_client: HTTPoison,
       ]
 
     ]
@@ -49,7 +50,8 @@ defmodule WebHn.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.0"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:mox, "~> 0.5.2", only: :test}
     ]
   end
 
