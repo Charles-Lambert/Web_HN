@@ -2,6 +2,7 @@ defmodule WebHn.Update do
   alias WebHn.Posts
   alias WebHn.Posts.Story
   alias WebHn.Repo
+  alias WebHn.Posts.Comment
 
   defp http_client do
     Application.get_env(:web_hn, :http_client)

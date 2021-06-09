@@ -3,6 +3,7 @@ defmodule WebHnWeb.StoryController do
 
   alias WebHn.Posts
   alias WebHn.Posts.Story
+  alias WebHn.Posts.Comment
 
   def index(conn, params) do
     stories = Posts.list_stories()
@@ -27,7 +28,7 @@ defmodule WebHnWeb.StoryController do
   end
 
   def show(conn, %{"id" => id}) do
-    story = Posts.get_story!(id)
+    story = Posts.get_story_with_comments(id)
     render(conn, "show.html", story: story)
   end
 

@@ -40,3 +40,13 @@
 
 <span><%= #link "Edit", to: Routes.story_path(@conn, :edit, @story) %></span>
 <span><%= #link "Back", to: Routes.story_path(@conn, :index) %></span>
+
+<%= link "reply", to: Routes.comment_path(@conn, :new, @story) %>
+
+<h2> Comments: </h2>
+<%=for comment <- build_tree(@story.comments, []) do %>
+  <%=render "comment.html", parent: comment%>
+
+<%end%>
+
+

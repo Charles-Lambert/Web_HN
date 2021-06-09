@@ -11,6 +11,7 @@ defmodule WebHn.Posts.Story do
     field :time, :utc_datetime
     field :title, :string
     field :url, :string
+    has_many :comments, Comment, foreign_key: :parent_story
 
     timestamps()
   end

@@ -1,0 +1,15 @@
+<div style="border-left: 1px solid grey;">
+  <div style="margin-left:10px">
+    <p style="color:Gray;"> by <%= @comment.user%> at <%="foo" # @comment.updated_at %> </p> 
+
+    <p> <%= @comment.body %> </p>
+    <p> <%= link "reply", to: Routes.comment_path() %> </p>
+    <div>
+      <%= for child <- @comment.children do %>
+  
+        <%=render "comment.html", comment: child%>
+
+      <%end%>
+    </div>
+  </div>
+</div>
