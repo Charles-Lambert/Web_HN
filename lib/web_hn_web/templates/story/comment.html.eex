@@ -1,13 +1,13 @@
 <div style="border-left: 1px solid grey;">
   <div style="margin-left:10px">
-    <p style="color:Gray;"> by <%= @comment.user%> at <%="foo" # @comment.updated_at %> </p> 
+    <p style="color:Gray;"> by <%=@comment.user.username%> at <%=NaiveDateTime.to_string(@comment.updated_at) %> </p> 
 
     <p> <%= @comment.body %> </p>
-    <p> <%= link "reply", to: Routes.comment_path() %> </p>
+    <p>  <%= link "reply", to: Routes.comment_path(@conn, :new, [parent_story: @comment.parent_story, parent_comment: @comment.id]) %> </p>
     <div>
       <%= for child <- @comment.children do %>
   
-        <%=render "comment.html", comment: child%>
+        <%=render "comment.html", conn: @conn, comment: child%>
 
       <%end%>
     </div>

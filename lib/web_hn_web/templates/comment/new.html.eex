@@ -1,5 +1,9 @@
-<h1>Replying to <%= @story %></h1>
+<h1>Replying to <%= @parent_story.title %></h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.comment_path(@conn, :create)) %>
+<%= if @parent_comment do %>
+  Replying to comment <%="foo"# @parent_comment.body %>
+<% end %>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.comment_path(@conn, :create, %{ comment: @parent_comment}))%>
 
 <span><%= link "Back", to: Routes.comment_path(@conn, :index) %></span>

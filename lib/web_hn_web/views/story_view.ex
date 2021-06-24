@@ -56,18 +56,18 @@ defmodule WebHnWeb.StoryView do
       [] -> 
         tree
       [head|tail] ->
-        build_tree(tail, add_to_tree(head, tree))
+        build_tree(tail, add_to_tree(Map.from_struct(head), tree))
     end
   end
 
-  def add_to_tree(comment, tree) do 
+  def add_to_tree(comment, tree) do
     case comment.parent do
-      nil -> [comment | tree] #add top level comment to tree
+      nil -> [Map.put(comment , :children, []) | tree] #add top level comment to tree
       parent ->
         case tree do
           [] -> [] #hit the bottom of the tree (past a leaf node)
           [node = %{id: ^parent} | tail] -> #found the parent comment
-            [%{node | children: [comment | node.children]} | tail] #prepend child to comment list. stop recursing
+            [%{node | children: [Map.put(comment, :children ,[]) | node.children]} | tail] #prepend child to comment list. stop recursing
           [head | tail] ->
             [%{head | children: add_to_tree(comment, head.children)} | add_to_tree(comment, tail)] #recurse down and across tree
         end

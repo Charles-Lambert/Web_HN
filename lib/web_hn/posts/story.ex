@@ -1,6 +1,7 @@
 defmodule WebHn.Posts.Story do
   use Ecto.Schema
   import Ecto.Changeset
+  alias WebHn.Posts.{Comment, Story}
 
   @primary_key {:id, :integer, autogenerate: false}
   schema "stories" do

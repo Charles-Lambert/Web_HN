@@ -51,7 +51,8 @@ defmodule WebHn.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.6"},
-      {:mox, "~> 0.5.2", only: :test}
+      {:mox, "~> 0.5.2", only: :test},
+      {:pbkdf2_elixir, "~> 1.0"}
     ]
   end
 

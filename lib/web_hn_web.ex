@@ -23,6 +23,7 @@ defmodule WebHnWeb do
 
       import Plug.Conn
       import WebHnWeb.Gettext
+      import WebHnWeb.Auth, only: [authenticate_user: 2] 
       alias WebHnWeb.Router.Helpers, as: Routes
     end
   end

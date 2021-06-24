@@ -16,7 +16,7 @@ defmodule WebHn.Update.Trigger do
     list_url=Application.fetch_env!(:web_hn, :list_url)
     story_url=Application.fetch_env!(:web_hn, :story_url)
     WebHn.Update.update_stories(list_url, story_url, %{}, 10)
-    Process.send_after(self(), :trigger, 60*1000, opts)
+    Process.send_after(self(), :trigger, 60*1000*60, opts)
     {:noreply, opts}
   end
 end

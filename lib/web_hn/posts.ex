@@ -8,6 +8,7 @@ defmodule WebHn.Posts do
 
   alias WebHn.Posts.Story
   alias WebHn.Posts.Comment
+  alias WebHn.Accounts
 
   @doc """
   Returns the list of stories.
@@ -42,8 +43,11 @@ defmodule WebHn.Posts do
     query = from(
       s in Story, 
       #join: c in assoc(stories, :comments), 
-      preload: [:comments],
-      where: s.id==^id)
+      #preload: [:comments],
+      where: s.id==^id,
+      left_join: comments in assoc(s, :comments),
+      left_join: user in assoc(comments, :user),
+      preload: [comments: {comments, user: user}])
     Repo.one(query)
   end
 
@@ -155,9 +159,34 @@ defmodule WebHn.Posts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_comment(attrs \\ %{}) do
+#  def create_comment(attrs, params) do
+    #case Map.fetch(params, :parent_comment) do
+      #{:ok, parent_comment_id} ->
+        #parent_comment=get_comment!(parent_comment_id)
+        #parent_story=get_story!(parent_comment.parent_story)
+        #%Comment{}
+        #|> Comment.changeset(attrs)
+        #|> Ecto.Changeset.put_change(:parent, parent_comment.id)
+        #|> Ecto.Changeset.put_change(:parent_story, parent_story.id)
+        #|> Repo.insert()
+      #:error ->
+        #%{parent_story: parent_story_id} = params
+        #parent_story=get_story!(parent_story_id)
+        #%Comment{}
+        #|> Comment.changeset(attrs)
+        #|> Ecto.Changeset.put_change(:parent_story, parent_story.id)
+        #|> Repo.insert()
+    #end
+  #end
+
+  
+  def create_comment(%Accounts.User{} = user, attrs) do
+    parent_story = attrs["parent_story"]
+    parent_comment = attrs["parent"]
     %Comment{}
     |> Comment.changeset(attrs)
+    |> Ecto.Changeset.cast(%{parent_story: parent_story, parent: parent_comment}, [])
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 

@@ -6,6 +6,15 @@
     <strong>Body:</strong>
     <%= @comment.body %>
   </li>
+  <li>
+    Parent Story:
+    <%= @comment.parent_story %>
+  </li>
+  <li>
+    Parent Comment:
+    <%=case Map.fetch(@comment, :parent) do 
+      {:ok, parent} -> parent
+      _ -> "no parent" end %>
 
 </ul>
 

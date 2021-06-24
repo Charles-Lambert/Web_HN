@@ -4,11 +4,15 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
-
+  <%= @parent_story.id %>
   <%= label f, :body %>
   <%= textarea f, :body %>
   <%= error_tag f, :body %>
-
+  <%= hidden_input f, :parent_story, value: @parent_story.id %>
+  <%= if @parent_comment do %>
+    <%= hidden_input f, :parent, value: @parent_comment %>
+  <% end %>
+  
   <div>
     <%= submit "Save" %>
   </div>
